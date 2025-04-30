@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Evan Jonson">
+    <title>Metaball Fluids</title>
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+    <!-- css -->
+    <link type="text/css" rel="stylesheet" href="stylish.css">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="img/icons8-mitosis-32.png">
+    <!-- javascript -->
+    <script type="text/javascript" src="gl-matrix.js"></script>
+    <script type="module" src="metaballs.js"></script>
+</head>
+
+<body>
+    <!-- sidebar -->
+    <aside id="sidebar-left">
+        <!-- blobby options -->
+        <details id="blobs" open>
+            <summary>Blobs</summary>
+            <!-- blobs toggle -->
+            <div title="Compute and render blobs.">
+                <label for="blobby">Blobs:</label>
+                <input type="checkbox" id="blobby" name="blobby" checked>
+            </div>
+            <!-- how many? -->
+            <div title="How many blobs to render.">
+                <label for="numBlobs">Quantity:</label>
+                <input type="number" id="numBlobs" name="numBlobs" value="10" min="0" step="1">
+            </div>
+            <!-- how fast? -->
+            <div title="How fast are the blobs when physics are off.">
+                <label for="velocity">Velocity:</label>
+                <input type="number" id="velocity" name="velocity" value="0.8" min="0" step="0.1">
+            </div>
+            <!-- resolution -->
+            <div title="The size of the scalar field. Determines how many triangles make up the blob mesh.">
+                <label for="resolution">Resolution:</label>
+                <input type="number" id="resolution" name="resolution" value="30" min="2" step="1">
+            </div>
+            <!-- isovalue -->
+            <div title="Determines how blobs are interpolated.">
+                <label for="isolevel">Threshold:</label>
+                <input type="number" id="isolevel" name="isolevel" value="0.5" min="0" step="0.1">
+            </div>
+            <!-- nuclui -->
+            <div title="Render the blob nuclei.">
+                <label for="nuclei">Particles:</label>
+                <input type="checkbox" id="nuclei" name="nuclei">
+            </div>
+        </details>
+        <!-- fluids -->
+        <details id="physics" open>
+            <summary>Fluids</summary>
+            <!-- toggle -->
+            <div title="Gravity and fluids using spring mechanics.">
+                <label for="gravity">Physics:</label>
+                <input type="checkbox" id="gravity" name="gravity">
+            </div>
+            <!-- follow -->
+            <div title="Determines the gravity direction.">
+                <label for="follow">Rotate Cube With Camera:</label>
+                <input type="checkbox" id="follow" name="follow">
+            </div>
+            <!-- presets -->
+            <div>
+                <label>Presets:</label>
+                <input type="button" id="water" name="water" value="Water" title="Calm and fluid.">
+                <input type="button" id="mercury" name="mercury" value="Mercury" title="Tends to clump.">
+                <input type="button" id="slime" name="slime" value="Slime" title="Thick and gooey.">
+                <input type="button" id="plasma" name="plasma" value="Plasma" title="Volatile.">
+            </div>
+            <!-- range -->
+            <div title="The maximum interaction distance between particles.">
+                <label for="range">Range:</label>
+                <input type="number" id="range" name="range" value="0.8" min="0" step="0.1">
+            </div>
+            <!-- restlength -->
+            <div title="The natural resting length of the springs.">
+                <label for="length">Length:</label>
+                <input type="number" id="length" name="length" value="0.5" min="0" step="0.1">
+            </div>
+            <!-- stiffness -->
+            <div title="How the springs compress.">
+                <label for="stiffness">Stiffness:</label>
+                <input type="number" id="stiffness" name="stiffness" value="2" step="0.1">
+            </div>
+            <!-- damping -->
+            <div title="Reduces or increases spring forces.">
+                <label for="damping">Damping:</label>
+                <input type="number" id="damping" name="damping" value="-0.1" step="0.1">
+            </div>
+            <!-- repulsion -->
+            <div title="Repulsive force applied when particles are too close.">
+                <label for="repulsion">Repulsion:</label>
+                <input type="number" id="repulsion" name="repulsion" value="2.0" step="0.1">
+            </div>
+        </details>
+        <!-- lighting -->
+        <details id="lighting" open>
+            <summary>Shading</summary>
+            <!-- diffuse -->
+            <div title="Blob diffuse color.">
+                <label for="diffuse">Color:</label>
+                <input type="color" id="diffuse" name="diffuse" value="#0f87cc">
+            </div>
+            <!-- alpha -->
+            <div title="Blob alpha value.">
+                <label for="alpha">Transparency:</label>
+                <input type="number" id="alpha" name="alpha" value="0.85" min="0" max="1" step="0.1">
+            </div>
+            <!-- shading -->
+            <div title="Lambertian shading.">
+                <label for="shading">Blob Shading:</label>
+                <input type="checkbox" id="shading" name="shading" checked>
+            </div>
+            <!-- cube mapping -->
+            <div title="Environment mapping with cubes.">
+                <label for="cubemapping">Cube Mapping:</label>
+                <input type="checkbox" id="cubemapping" name="cubemapping" checked>
+            </div>
+            <!-- headlight -->
+            <div title="Global light position.">
+                <label for="headlight">Headlight:</label>
+                <input type="checkbox" id="headlight" name="headlight" checked>
+            </div>
+        </details>
+    </aside>
+    <!-- canvas -->
+    <main>
+        <canvas id="canvas" width="600" height="600"></canvas>
+    </main>
+    <!-- details -->
+    <aside id="sidebar-right">
+        <!-- controls -->
+        <fieldset>
+            <legend>Controls</legend>
+            <h2>Mouse</h2>
+            <span>Click & Drag - Rotate Camera</span>
+            <span>Scroll - Zoom In/Out Camera</span>
+            <h2>Keyboard</h2>
+            <span>WASD - Rotate Camera</span>
+            <span>EQ - Zoom In/Out Camera</span>
+            <span>F - Toggle Fullscreen</span>
+        </fieldset>
+        <!-- about -->
+        <fieldset>
+            <legend>About</legend>
+            <h2>Metaball Fluids with Marching Cubes and Spring Mechanics by Evan Jonson</h2>
+            <a target="_blank" href="https://github.com/ecjonson/MetaballFluids">Github Repository</a>
+        </fieldset>
+    </aside>
+</body>
+
+</html>

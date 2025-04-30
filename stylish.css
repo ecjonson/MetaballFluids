@@ -1,0 +1,177 @@
+/*
+    Evan Jonson (ecjonson)
+    CSC 562
+    Project
+    3/18/2025
+*/
+
+/* --- general formatting --- */
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Roboto";
+}
+
+/* --- tags --- */
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+body {
+    background-color: #d3d3d3;
+    display: flex;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* webgl canvas */
+canvas {
+    display: block;
+    box-shadow: 0 0 10px black;
+}
+
+canvas:hover {
+    cursor: grab;
+}
+
+canvas:active {
+    cursor: grabbing;
+}
+
+/* collapsibles */
+details {
+    background: white;
+    border-bottom: 1px solid #cccccc;
+}
+
+details div {
+    padding: 0 20px 0 20px;
+}
+
+summary {
+    padding: 10px 0 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #6272A4;
+    color: white;
+}
+
+/* sub-sections */
+fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+}
+
+fieldset>span {
+    margin: 0 0 0 20px;
+}
+
+legend {
+    font-weight: bold;
+    color: #6272A4;
+}
+
+/* headers */
+h1 {
+    font-size: 1.7rem;
+    margin: 0;
+}
+
+h2 {
+    font-size: 0.9rem;
+    margin: 0 0 0 10px;
+}
+
+aside {
+    width: 310px;
+    background-color: #f0f0f0;
+    overflow-y: auto;
+    color: #44475A;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 0 10px #44475A;
+}
+
+/* buttons */
+input[type="button"] {
+    padding: 3px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input[type="number"] {
+    padding-left: 5px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: #6272A4;
+}
+
+input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #e0e0e0;
+}
+
+a {
+    padding-left: 10px;
+}
+
+/* --- ids --- */
+
+#sidebar-right {
+    padding: 20px;
+    border-right: none;
+}
+
+#sidebar-left h1 {
+    padding-top: 20px;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+#sidebar-left details div {
+    margin: 3px 0;
+}
+
+#sidebar-left div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#water {
+    background-color: #0f87cc;
+}
+
+#mercury {
+    background-color: #cccccc;
+    color: black;
+}
+
+#slime {
+    background-color: #72f909;
+    color: black;
+}
+
+#plasma {
+    background-color: #c321a5;
+}
