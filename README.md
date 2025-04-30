@@ -15,4 +15,4 @@ Metaballs, also known as blobby objects, are n-dimensional isosurfaces that meld
 Spring mechanics (Hooke's Law) are used here to simulate fluids by applying forces to the blobs relative to their proximity. For more information on how this is applied to particles, check out [Ahmad Moussa's "Spring Physics, Particles and Meshes"](https://www.gorillasun.de/blog/spring-physics-and-connecting-particles-with-springs/).
 
 ## Instructions
-You can run it right [here](https://ecjonson.github.io/MetaballFluids/) using Github Pages!
+You can run it right [here](https://ecjonson.github.io/MetaballFluids/) using Github Pages! Checkout my [demo](https://ecjonson.github.io/MetaballFluids/demo.mp4)!
